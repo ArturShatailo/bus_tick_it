@@ -7,6 +7,8 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>payment_system</module>
+      <module>tickets_management</module>
+      <module>clients_management</module>
   </modules>
   <name>bus_tick_it</name>
   <url>http://maven.apache.org</url>
@@ -43,6 +45,7 @@
         <type>pom</type>
       </dependency>
     </dependencies>
+
   </dependencyManagement>
 
   <build>
@@ -57,6 +60,13 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
               </exclude>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>org.mapstruct</groupId>
+                  <artifactId>mapstruct-processor</artifactId>
+                  <version>1.4.2.Final</version>
+                </path>
+              </annotationProcessorPaths>
             </excludes>
           </configuration>
         </plugin>
