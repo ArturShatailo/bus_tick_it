@@ -37,7 +37,7 @@ public class PaymentSystemController {
     @DeleteMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public void buyTicket(@RequestBody ClientDTO clientDTO, @RequestParam Double amount){
-        payServiceBean.do_payment(clientMapper.toObject(clientDTO));
+        payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
 
 }
