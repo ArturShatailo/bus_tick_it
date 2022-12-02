@@ -2,7 +2,9 @@ package com.tickets.payment_system.util.mapper;
 
 import com.tickets.payment_system.domain.Client;
 import com.tickets.payment_system.domain.ClientDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClientMapperImpl implements ClientMapper{
 
     @Override

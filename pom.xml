@@ -8,7 +8,6 @@
   <modules>
     <module>payment_system</module>
       <module>tickets_management</module>
-      <module>clients_management</module>
   </modules>
   <name>bus_tick_it</name>
   <url>http://maven.apache.org</url>
