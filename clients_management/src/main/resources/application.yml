@@ -3,7 +3,7 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bus_tick_it_payment
+    url: jdbc:postgresql://localhost:5432/bus_tick_it_clients
     username: postgres
     password: Postgresql
   # JPA properties
@@ -17,4 +17,4 @@ spring:
     generate-ddl: true
 
 server:
-  port: 8081 #set your port
+  port: 8083 #set your port
