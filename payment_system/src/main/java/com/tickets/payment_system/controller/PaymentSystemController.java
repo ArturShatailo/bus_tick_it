@@ -8,11 +8,12 @@ import com.tickets.payment_system.service.PaymentStatusServiceBean;
 import com.tickets.payment_system.util.mapper.ClientMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/pay")
+@RequestMapping(value = "/pay", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class PaymentSystemController {
 
@@ -34,10 +35,10 @@ public class PaymentSystemController {
         return paymentStatusServiceBean.status_processing();
     }
 
-    @DeleteMapping("/")
+    @PostMapping("/{amount}")
     @ResponseStatus(HttpStatus.OK)
-    public void buyTicket(@RequestBody ClientDTO clientDTO, @RequestParam Double amount){
-        payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
+    public Long buyTicket(@RequestBody ClientDTO clientDTO, @PathVariable Double amount){
+        return payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
 
 }

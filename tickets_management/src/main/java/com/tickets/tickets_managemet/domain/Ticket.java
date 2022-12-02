@@ -1,7 +1,5 @@
 package com.tickets.tickets_managemet.domain;
 
-import com.tickets.clients_management.domain.Client;
-import com.tickets.payment_system.domain.Payment;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
@@ -19,16 +17,18 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Payment payment;
-
     @ManyToOne
-    //@JoinColumn(name="route_id")
     private Route route;
 
     @ManyToOne
-    //@JoinColumn(name="route_id")
     private Client client;
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Payment payment;
+
+    //private Long client_id;
+
+    private Long payment_id;
 
     private Date last_check_date;
 

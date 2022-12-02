@@ -36,7 +36,7 @@ public class RouteCrudServiceBean implements CrudService<Route> {
         ).orElseThrow(() -> new NoSuchElementException("Can't find an Route with id = " + id));
     }
 
-    public void update(Long id, Ticket ticket) {
+    public void updateSell(Long id, Ticket ticket) {
         routeRepository.findById(id).map(
                 p -> {
                     p.getBought_tickets().add(ticket);
@@ -44,6 +44,16 @@ public class RouteCrudServiceBean implements CrudService<Route> {
                     return routeRepository.save(p);
                 }
                 ).orElseThrow(() -> new NoSuchElementException("Can't find an Route with id = " + id));
+    }
+
+    public void updateCancel(Long id, Ticket ticket) {
+        routeRepository.findById(id).map(
+                p -> {
+                    p.getBought_tickets().remove(ticket);
+                    p.backTicket();
+                    return routeRepository.save(p);
+                }
+        ).orElseThrow(() -> new NoSuchElementException("Can't find an Route with id = " + id));
     }
 
     @Override

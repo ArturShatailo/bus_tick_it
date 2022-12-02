@@ -1,6 +1,6 @@
 package com.tickets.tickets_managemet.service.ticket;
 
-import com.tickets.clients_management.domain.Client;
+import com.tickets.tickets_managemet.domain.Client;
 
 public interface TicketPurchaseProcessingService {
 
