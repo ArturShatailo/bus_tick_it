@@ -7,11 +7,11 @@ import com.tickets.tickets_managemet.repository.ClientRepository;
 import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
 import com.tickets.tickets_managemet.service.route.RouteTicketsAvailabilityServiceBean;
+import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
@@ -27,7 +27,7 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
 
     private final ClientRepository clientRepository;
 
-    private final RestTemplate paymentRestTemplate;
+    private final TicketConfig ticketConfig;
 
     @Transactional
     @Override
@@ -35,11 +35,13 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
 
         routeTicketsAvailability.check(route_id);
 
+        Route route = getRoute(route_id);
+
         //save Ticket object block
         Ticket ticket =
                 ticketRepository.save(Ticket.builder()
-                        .route(getRoute(route_id))
-                        .payment_id(getPaymentID(client))
+                        .route(route)
+                        .payment_id(getPaymentID(client, route.getCost()))
                         .current_status("NEW")
                         .last_check_date(new Date())
                         .client(getClient(client.getEmail()))
@@ -58,17 +60,17 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
                 .orElseThrow(() -> new NoSuchElementException("Can't find Client with email: "+email));
     }
 
-    public Long getPaymentID(Client client) {
-        String uri ="http://localhost:8083/pay/{amount}";
-        return paymentRestTemplate.postForObject(uri, new HttpEntity<>(client), Long.class, 1.0);
-    }
-
     private Route getRoute(Long id){
         return routeCrudServiceBean.getById(id);
     }
 
     private void updateRouteAfterTicketSell(Long route_id, Ticket ticket){
         routeCrudServiceBean.updateSell(route_id, ticket);
+    }
+
+    public Long getPaymentID(Client client, Double amount) {
+        String uri ="http://localhost:8083/pay/{amount}";
+        return ticketConfig.restTemplate().postForObject(uri, new HttpEntity<>(client), Long.class, amount);
     }
 
 }

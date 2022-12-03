@@ -1,6 +1,5 @@
 package com.tickets.payment_system.controller;
 
-import com.tickets.payment_system.domain.Client;
 import com.tickets.payment_system.domain.ClientDTO;
 import com.tickets.payment_system.service.PayServiceBean;
 import com.tickets.payment_system.service.PaymentCrudServiceBean;
@@ -19,14 +18,22 @@ public class PaymentSystemController {
 
     private final PaymentStatusServiceBean paymentStatusServiceBean;
 
+    private final PaymentCrudServiceBean paymentCrudServiceBean;
+
     private final PayServiceBean payServiceBean;
 
     private final ClientMapper clientMapper;
 
-    @PutMapping("/status")
+    @GetMapping("/status/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String setStatus(@RequestParam Long payment_id){
-        return paymentStatusServiceBean.status_processing(payment_id);
+    public String setStatus(@PathVariable Long id){
+        return paymentStatusServiceBean.status_processing(id);
+    }
+
+    @GetMapping("/st/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public String getPaymentStatus(@PathVariable Long id){
+        return paymentCrudServiceBean.getById(id).getStatus();
     }
 
     @PutMapping("/statuses")
@@ -36,8 +43,8 @@ public class PaymentSystemController {
     }
 
     @PostMapping("/{amount}")
-    @ResponseStatus(HttpStatus.OK)
-    public Long buyTicket(@RequestBody ClientDTO clientDTO, @PathVariable Double amount){
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long pay(@RequestBody ClientDTO clientDTO, @PathVariable Double amount){
         return payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
 
