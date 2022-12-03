@@ -39,7 +39,8 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
                 .filter(ticket -> filter.ticketStatusFilter(ticket, "FAIL"))
                 .collect(Collectors.toMap(
                         k -> k.getRoute().getId(),
-                        v -> v.getRoute().getAvailable_tickets_amount()
+                        v -> v.getRoute().getAvailable_tickets_amount(),
+                        (n1, n2) -> n2
                 ));
 
 //        Map<Long, Integer> availableRoutes = new HashMap<>();
