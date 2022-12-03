@@ -44,7 +44,7 @@ public class PaymentSystemController {
 
     @PostMapping("/{amount}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long pay(@RequestBody ClientDTO clientDTO, @PathVariable Double amount){
+    public Long pay(@RequestBody /*@Valid*/ ClientDTO clientDTO, @PathVariable Double amount){
         return payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
 
