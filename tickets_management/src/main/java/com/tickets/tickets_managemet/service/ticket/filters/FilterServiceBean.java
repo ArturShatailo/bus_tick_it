@@ -24,7 +24,7 @@ public class FilterServiceBean implements FilterService{
 
     @Override
     public boolean lastCheckFilter(Ticket ticket) {
-        return new Date().getTime() - ticket.getLast_check_date().getTime() > 1000;
+        return new Date().getTime() - ticket.getLast_check_date().getTime() > 10000;
     }
 
     @Override

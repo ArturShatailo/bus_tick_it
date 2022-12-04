@@ -10,11 +10,13 @@ import com.tickets.tickets_managemet.service.route.RouteTicketsAvailabilityServi
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import com.tickets.tickets_managemet.util.exceptions.client.ClientNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProcessingService{
@@ -33,6 +35,8 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
     @Override
     public Long ticketPurchaseProcessing(Client client, Long route_id) {
 
+        log.info("[Ticket system] Start ticketPurchaseProcessing method");
+
         routeTicketsAvailability.check(route_id);
 
         Route route = getRoute(route_id);
@@ -48,6 +52,8 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
                         .deleted(false)
                         .is_checked(false)
                         .build());
+
+        log.info("[Ticket system] New Ticket with id {} will be saved in database", ticket.getId());
 
         //change Route object
         updateRouteAfterTicketSell(route_id, ticket);
@@ -70,6 +76,10 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
 
     public Long getPaymentID(Client client, Double amount) {
         String uri = ticketConfig.paymentSystemPay();
+
+        log.info("[Ticket system] HTTP request to uri {} with path variable amount {} " +
+                "will be sent to create a new Payment and get its id", uri, amount);
+
         return ticketConfig.restTemplate().postForObject(uri, new HttpEntity<>(client), Long.class, amount);
     }
 
