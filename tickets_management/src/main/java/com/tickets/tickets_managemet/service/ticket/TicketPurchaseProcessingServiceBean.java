@@ -69,7 +69,7 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
     }
 
     public Long getPaymentID(Client client, Double amount) {
-        String uri ="http://localhost:8083/pay/{amount}";
+        String uri = ticketConfig.paymentSystemPay();
         return ticketConfig.restTemplate().postForObject(uri, new HttpEntity<>(client), Long.class, amount);
     }
 

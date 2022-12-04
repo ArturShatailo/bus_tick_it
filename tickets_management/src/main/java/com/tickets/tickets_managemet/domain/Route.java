@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,16 +26,13 @@ public class Route {
     @OneToOne(cascade = CascadeType.ALL)
     private Station to;
 
-    private String departure_time;
+    private Date departure_time;
 
     private Double cost;
 
     private Integer available_tickets_amount;
 
     private Boolean deleted = Boolean.FALSE;
-
-//    @OneToMany(mappedBy="route", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-//    List<Ticket> tickets;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     List<Ticket> bought_tickets;

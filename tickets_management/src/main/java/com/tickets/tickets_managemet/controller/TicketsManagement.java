@@ -1,6 +1,6 @@
 package com.tickets.tickets_managemet.controller;
 
-import com.tickets.tickets_managemet.domain.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.ClientDTO;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Map;

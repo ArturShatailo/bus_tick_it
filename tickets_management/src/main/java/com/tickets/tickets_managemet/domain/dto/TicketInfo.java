@@ -1,5 +1,6 @@
-package com.tickets.tickets_managemet.domain;
+package com.tickets.tickets_managemet.domain.dto;
 
+import com.tickets.tickets_managemet.domain.Route;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

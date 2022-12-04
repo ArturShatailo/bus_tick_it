@@ -1,7 +1,7 @@
 package com.tickets.tickets_managemet.service.ticket;
 
 import com.tickets.tickets_managemet.domain.Ticket;
-import com.tickets.tickets_managemet.domain.TicketInfo;
+import com.tickets.tickets_managemet.domain.dto.TicketInfo;
 import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class TicketInfoServiceBean implements TicketInfoService{
     }
 
     private String getPaymentStatus(Long paymentID) {
-        String uri ="http://localhost:8083/pay/st/{id}";
+        String uri = ticketConfig.paymentSystemGetStatus();
         return ticketConfig.restTemplate().getForObject(uri, String.class, paymentID);
     }
 

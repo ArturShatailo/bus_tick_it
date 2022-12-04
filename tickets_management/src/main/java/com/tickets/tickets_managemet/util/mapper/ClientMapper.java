@@ -2,7 +2,7 @@ package com.tickets.tickets_managemet.util.mapper;
 
 
 import com.tickets.tickets_managemet.domain.Client;
-import com.tickets.tickets_managemet.domain.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.ClientDTO;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 

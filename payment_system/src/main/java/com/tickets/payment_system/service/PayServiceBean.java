@@ -6,7 +6,6 @@ import com.tickets.payment_system.repository.ClientRepository;
 import com.tickets.payment_system.repository.PaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.NoSuchElementException;
 
 @Service

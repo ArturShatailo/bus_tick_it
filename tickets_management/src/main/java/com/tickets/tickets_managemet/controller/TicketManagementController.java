@@ -1,6 +1,6 @@
 package com.tickets.tickets_managemet.controller;
 
-import com.tickets.tickets_managemet.domain.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.ClientDTO;
 import com.tickets.tickets_managemet.service.ticket.TicketPurchaseServiceBean;
 import com.tickets.tickets_managemet.service.tickets_status_processor.TicketProcessorServiceBean;
 import com.tickets.tickets_managemet.util.mapper.ClientMapper;
@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class TicketManagementController implements TicketsManagement{
 
@@ -20,7 +20,7 @@ public class TicketManagementController implements TicketsManagement{
 
     private final ClientMapper clientMapper;
 
-    private final TicketProcessorServiceBean ticketProcessorServiceBean;
+    private final TicketProcessorServiceBean ticketProcessor;
 
     @Override
     @PostMapping("/buy")
@@ -33,7 +33,7 @@ public class TicketManagementController implements TicketsManagement{
     @GetMapping("/check")
     @ResponseStatus(HttpStatus.CREATED)
     public Map<Long, Integer> checkTickets(){
-        return ticketProcessorServiceBean.ticketsCheck();
+        return ticketProcessor.ticketsCheck();
     }
 
 }

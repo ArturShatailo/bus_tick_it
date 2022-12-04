@@ -41,24 +41,6 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
                         v -> v.getRoute().getAvailable_tickets_amount(),
                         (n1, n2) -> n2
                 ));
-
-//        Map<Long, Integer> availableRoutes = new HashMap<>();
-//
-//        List<Ticket> ticketsToCheck = ticketRepository.findAll().stream()
-//                .filter(ticket -> !ticket.getDeleted())
-//                .filter(ticket -> !ticket.getIs_checked())
-//                .filter(ticket -> getPaymentStatus(ticket.getId()).equals("NEW"))
-//                .filter(this::checkPeriod)
-//                .toList();
-//
-//        for (Ticket ticket : ticketsToCheck) {
-//            Route route = ticket.getRoute();
-//            String status = defineTicketStatus(ticket);
-//            if (status.equals("FAIL"))
-//                availableRoutes.put(route.getId(), route.getAvailable_tickets_amount());
-//        }
-
-        //return availableRoutes;
     }
 
     public Ticket defineTicketStatus(Ticket ticket){
@@ -75,7 +57,7 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
     }
 
     private String randomPaymentStatusForTicket(Long paymentID) {
-        String uri ="http://localhost:8083/pay/status/{id}";
+        String uri = ticketConfig.paymentSystemSetStatus();
         return ticketConfig.restTemplate().getForObject(uri, String.class, paymentID);
     }
 

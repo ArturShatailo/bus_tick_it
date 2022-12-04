@@ -1,6 +1,6 @@
 package com.tickets.tickets_managemet.service.ticket;
 
-import com.tickets.tickets_managemet.domain.TicketInfo;
+import com.tickets.tickets_managemet.domain.dto.TicketInfo;
 
 public interface TicketInfoService {
 

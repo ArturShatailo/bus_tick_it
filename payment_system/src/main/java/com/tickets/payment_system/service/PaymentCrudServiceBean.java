@@ -18,29 +18,4 @@ public class PaymentCrudServiceBean implements CrudService<Payment> {
                 .orElseThrow(() -> new NoSuchElementException("Can't find Payment with id: " + id));
     }
 
-    @Override
-    public void update(Long id, Payment payment) {
-        paymentRepository.findById(id).map(
-                p -> {
-                    p.setClient(payment.getClient());
-                    p.setStatus(payment.getStatus());
-                    p.setDeleted(payment.getDeleted());
-                    return paymentRepository.save(p);
-                }
-        ).orElseThrow(() -> new NoSuchElementException("Can't find an Payment with id = " + id));
-    }
-
-    @Override
-    public Payment create(Payment payment) {
-        return paymentRepository.save(payment);
-    }
-
-    @Override
-    public void delete(Long id) {
-        Payment payment = paymentRepository.findById(id)
-                        .orElseThrow(() -> new NoSuchElementException("Can't find Payment with id: " + id));
-        payment.setDeleted(true);
-        paymentRepository.save(payment);
-    }
-
 }
