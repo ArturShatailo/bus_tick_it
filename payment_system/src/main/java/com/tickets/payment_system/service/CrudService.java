@@ -9,5 +9,4 @@ public interface CrudService<T> {
      * @return Payment entity
      */
     T getById(Long id);
-
 }
