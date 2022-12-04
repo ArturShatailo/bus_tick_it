@@ -1,4 +1,4 @@
-package com.tickets.payment_system.domain;
+package com.tickets.tickets_managemet.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

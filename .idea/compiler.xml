@@ -11,5 +11,8 @@
         <module name="payment_system" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="clients_management" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

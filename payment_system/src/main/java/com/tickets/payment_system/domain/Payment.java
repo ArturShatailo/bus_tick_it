@@ -33,6 +33,7 @@ public class Payment {
         this.client = client;
         this.amount = amount;
     }
+
 }
 
 
