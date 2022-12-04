@@ -4,11 +4,13 @@ import com.tickets.payment_system.domain.Client;
 import com.tickets.payment_system.domain.dto.ClientDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class ClientMapperImpl implements ClientMapper{
 
     @Override
-    public ClientDTO toAreaViewDTO(Client object) {
+    public ClientDTO toDTO(Client object) {
 
         if (object == null) return null;
 
@@ -32,6 +34,8 @@ public class ClientMapperImpl implements ClientMapper{
         client.setName(dto.name);
         client.setSurname(dto.surname);
         client.setFather_name(dto.father_name);
+        client.setDeleted(false);
+        client.setPayments(new ArrayList<>());
 
         return client;
     }

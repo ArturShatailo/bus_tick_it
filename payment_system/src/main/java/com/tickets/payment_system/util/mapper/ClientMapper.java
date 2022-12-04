@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring", uses = ClientMapper.class, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface ClientMapper {
 
-    ClientDTO toAreaViewDTO(Client object);
+    ClientDTO toDTO(Client object);
 
     Client toObject(ClientDTO dto);
 
