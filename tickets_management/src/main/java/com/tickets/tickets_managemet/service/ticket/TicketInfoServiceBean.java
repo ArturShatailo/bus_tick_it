@@ -4,9 +4,9 @@ import com.tickets.tickets_managemet.domain.Ticket;
 import com.tickets.tickets_managemet.domain.dto.TicketInfo;
 import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
+import com.tickets.tickets_managemet.util.exceptions.ticket.TicketNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class TicketInfoServiceBean implements TicketInfoService{
 
     public Ticket getById(Long id) {
         return ticketRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Can't find ticket with id: " + id));
+                .orElseThrow(() -> new TicketNotFoundException("Ticket with id: " + id + " was not found in database"));
     }
 
 }

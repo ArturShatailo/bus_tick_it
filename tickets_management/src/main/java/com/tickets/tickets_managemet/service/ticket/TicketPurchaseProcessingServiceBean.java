@@ -8,12 +8,12 @@ import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
 import com.tickets.tickets_managemet.service.route.RouteTicketsAvailabilityServiceBean;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
+import com.tickets.tickets_managemet.util.exceptions.client.ClientNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
-import java.util.NoSuchElementException;
 
 @AllArgsConstructor
 @Service
@@ -57,7 +57,7 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
 
     private Client getClient(String email) {
         return clientRepository.findClientByEmail(email)
-                .orElseThrow(() -> new NoSuchElementException("Can't find Client with email: "+email));
+                .orElseThrow(() -> new ClientNotFoundException("Client with email: " + email + " was not found in database"));
     }
 
     private Route getRoute(Long id){
