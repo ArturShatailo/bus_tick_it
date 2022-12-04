@@ -5,9 +5,11 @@ import com.tickets.tickets_managemet.repository.RouteRepository;
 import com.tickets.tickets_managemet.util.exceptions.route.RouteNotFoundException;
 import com.tickets.tickets_managemet.util.exceptions.route.RouteUnavailableException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class RouteValidationServiceBean implements RouteValidationService {
@@ -28,6 +30,8 @@ public class RouteValidationServiceBean implements RouteValidationService {
 
     @Override
     public void validate(Long id) {
+        log.info("[Ticket system] validation of the Route with id {}", id);
+
         Route route = routeRepository.findById(id)
                 .orElseThrow(() -> new RouteNotFoundException("Route with id: " + id + " was not found in database"));
         checkTicketsAmount(route);

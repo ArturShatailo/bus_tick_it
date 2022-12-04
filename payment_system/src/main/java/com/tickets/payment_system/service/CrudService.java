@@ -3,10 +3,10 @@ package com.tickets.payment_system.service;
 public interface CrudService<T> {
 
     /**
-     * Returns Payment entity from database by received id parameter.
+     * Returns entity from database by received id parameter.
      *
-     * @param id Payment id
-     * @return Payment entity
+     * @param id id of entity
+     * @return Found entity
      */
     T getById(Long id);
 }
