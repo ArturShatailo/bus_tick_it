@@ -3,11 +3,11 @@ package com.tickets.payment_system.service;
 import com.tickets.payment_system.domain.Payment;
 import com.tickets.payment_system.repository.PaymentRepository;
 import com.tickets.payment_system.util.configuration.StatusConfig;
+import com.tickets.payment_system.util.exceptions.PaymentNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -20,15 +20,15 @@ public class PaymentStatusServiceBean implements PaymentStatusService {
     private final StatusConfig statusConfig;
 
     @Override
-    public String status_processing(Long payment_id) {
-        return paymentRepository.findById(payment_id)
+    public String status_processing(Long id) {
+        return paymentRepository.findById(id)
                 .map(
                         p -> {
                             p.setStatus(defineRandomFromList(statusConfig.status()));
                             return paymentRepository.save(p);
                         }
                 )
-                .orElseThrow(() -> new NoSuchElementException("Can't find Payment with id: " + payment_id))
+                .orElseThrow(() -> new PaymentNotFoundException("Payment with id: " + id + " was not found in database"))
                 .getStatus();
     }
 
