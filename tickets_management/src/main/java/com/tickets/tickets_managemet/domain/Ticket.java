@@ -22,11 +22,6 @@ public class Ticket {
 
     @ManyToOne
     private Client client;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Payment payment;
-
-    //private Long client_id;
 
     private Long payment_id;
 

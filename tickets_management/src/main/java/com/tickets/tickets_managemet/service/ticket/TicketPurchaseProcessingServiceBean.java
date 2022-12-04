@@ -8,13 +8,15 @@ import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
 import com.tickets.tickets_managemet.service.route.RouteTicketsAvailabilityServiceBean;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
+import com.tickets.tickets_managemet.util.exceptions.client.ClientNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
-import java.util.NoSuchElementException;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProcessingService{
@@ -33,6 +35,8 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
     @Override
     public Long ticketPurchaseProcessing(Client client, Long route_id) {
 
+        log.info("[Ticket system] Start ticketPurchaseProcessing method");
+
         routeTicketsAvailability.check(route_id);
 
         Route route = getRoute(route_id);
@@ -49,6 +53,8 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
                         .is_checked(false)
                         .build());
 
+        log.info("[Ticket system] New Ticket with id {} will be saved in database", ticket.getId());
+
         //change Route object
         updateRouteAfterTicketSell(route_id, ticket);
 
@@ -57,7 +63,7 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
 
     private Client getClient(String email) {
         return clientRepository.findClientByEmail(email)
-                .orElseThrow(() -> new NoSuchElementException("Can't find Client with email: "+email));
+                .orElseThrow(() -> new ClientNotFoundException("Client with email: " + email + " was not found in database"));
     }
 
     private Route getRoute(Long id){
@@ -69,7 +75,11 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
     }
 
     public Long getPaymentID(Client client, Double amount) {
-        String uri ="http://localhost:8083/pay/{amount}";
+        String uri = ticketConfig.paymentSystemPay();
+
+        log.info("[Ticket system] HTTP request to uri {} with path variable amount {} " +
+                "will be sent to create a new Payment and get its id", uri, amount);
+
         return ticketConfig.restTemplate().postForObject(uri, new HttpEntity<>(client), Long.class, amount);
     }
 

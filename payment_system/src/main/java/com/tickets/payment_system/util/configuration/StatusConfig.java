@@ -7,6 +7,9 @@ import java.util.*;
 @Configuration
 public class StatusConfig {
 
+    /**
+    This Bean returns a List of statuses for random
+     **/
     @Bean
     public List<String> status(){
         return List.of("NEW", "FAIL", "DONE");

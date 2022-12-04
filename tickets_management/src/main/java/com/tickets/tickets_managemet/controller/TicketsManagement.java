@@ -1,6 +1,6 @@
 package com.tickets.tickets_managemet.controller;
 
-import com.tickets.tickets_managemet.domain.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.ClientDTO;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Map;
@@ -21,6 +21,15 @@ public interface TicketsManagement {
     Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @RequestParam Long route_id);
 
 
+    /**
+     * Checks status of payment of each Ticket and finds ones with "NEW" status. Filters them according
+     * to the FilterService methods. Sets new statuses for
+     * payments of filtered tickets randomly. Saves all the changes in database.
+     * Tickets with "FAIL" status will cause adding Route data into the created map
+     * that will be returned.
+     *
+     * @return map of id of routes (keys) and amount of available tickets on routes (values).
+     */
     @GetMapping("/check")
     Map<Long, Integer> checkTickets();
 

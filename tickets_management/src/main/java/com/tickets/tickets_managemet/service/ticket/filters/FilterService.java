@@ -6,6 +6,4 @@ public interface FilterService extends
         LastCheckFilter,
         PaymentStatusFilter,
         TicketStatusFilter {
-
-
 }
