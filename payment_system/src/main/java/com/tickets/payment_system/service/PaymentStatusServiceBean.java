@@ -5,12 +5,14 @@ import com.tickets.payment_system.repository.PaymentRepository;
 import com.tickets.payment_system.util.configuration.StatusConfig;
 import com.tickets.payment_system.util.exceptions.PaymentNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PaymentStatusServiceBean implements PaymentStatusService {
@@ -25,6 +27,7 @@ public class PaymentStatusServiceBean implements PaymentStatusService {
                 .map(
                         p -> {
                             p.setStatus(defineRandomFromList(statusConfig.status()));
+                            log.info("[Payment system] status_processing service method sets status for payment with id {}", id);
                             return paymentRepository.save(p);
                         }
                 )
@@ -39,6 +42,7 @@ public class PaymentStatusServiceBean implements PaymentStatusService {
                         Payment::getId,
                         v -> {
                             String status = defineRandomFromList(statusConfig.status());
+                            log.info("[Payment system] status_processing service method sets status for payment with id {}", v.getId());
                             v.setStatus(status);
                             return status;
                         }
@@ -47,7 +51,9 @@ public class PaymentStatusServiceBean implements PaymentStatusService {
 
     private String defineRandomFromList(List<String> list) {
         Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
+        String status = list.get(rand.nextInt(list.size()));
+        log.info("[Payment system] status {} is randomly chosen", status);
+        return status;
     }
 
 }

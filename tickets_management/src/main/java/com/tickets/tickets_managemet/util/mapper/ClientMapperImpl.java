@@ -8,21 +8,6 @@ import org.springframework.stereotype.Component;
 public class ClientMapperImpl implements ClientMapper{
 
     @Override
-    public ClientDTO toAreaViewDTO(Client object) {
-
-        if (object == null) return null;
-
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.email = object.getEmail();
-        clientDTO.name = object.getName();
-        clientDTO.surname = object.getSurname();
-        clientDTO.father_name = object.getFather_name();
-
-        return clientDTO;
-
-    }
-
-    @Override
     public Client toObject(ClientDTO dto) {
 
         if (dto == null) return null;
