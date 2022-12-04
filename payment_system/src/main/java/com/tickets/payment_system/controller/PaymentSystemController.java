@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -44,7 +45,7 @@ public class PaymentSystemController {
 
     @PostMapping("/{amount}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long pay(@RequestBody /*@Valid*/ ClientDTO clientDTO, @PathVariable Double amount){
+    public Long pay(@RequestBody @Valid ClientDTO clientDTO, @PathVariable Double amount){
         return payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
 

@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class TicketManagementController {
+public class TicketManagementController implements TicketsManagement{
 
     private final TicketPurchaseServiceBean purchaseProcessing;
 
@@ -22,12 +22,14 @@ public class TicketManagementController {
 
     private final TicketProcessorServiceBean ticketProcessorServiceBean;
 
+    @Override
     @PostMapping("/buy")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long buyTicket(@RequestBody /*@Valid*/ ClientDTO clientDTO, @RequestParam Long route_id){
+    public Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @RequestParam Long route_id){
         return purchaseProcessing.buyTicket(clientMapper.toObject(clientDTO), route_id);
     }
 
+    @Override
     @GetMapping("/check")
     @ResponseStatus(HttpStatus.CREATED)
     public Map<Long, Integer> checkTickets(){

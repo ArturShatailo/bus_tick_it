@@ -1,9 +1,8 @@
 package com.tickets.tickets_managemet.service.tickets_status_processor;
 
-import com.tickets.tickets_managemet.domain.Route;
 import com.tickets.tickets_managemet.domain.Ticket;
-import com.tickets.tickets_managemet.repository.RouteRepository;
 import com.tickets.tickets_managemet.repository.TicketRepository;
+import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
 import com.tickets.tickets_managemet.service.ticket.filters.FilterServiceBean;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
 
     private final TicketRepository ticketRepository;
 
-    private final RouteRepository routeRepository;
+    private final RouteCrudServiceBean routeCrudServiceBean;
 
     private final TicketConfig ticketConfig;
 
@@ -88,10 +87,7 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
     }
 
     private void routeProcessingCheck(Ticket ticket) {
-        Route route = ticket.getRoute();
-        route.getBought_tickets().remove(ticket);
-        route.backTicket();
-        routeRepository.save(route);
+        routeCrudServiceBean.updateCancel(ticket.getRoute().getId(), ticket);
     }
 
 }
