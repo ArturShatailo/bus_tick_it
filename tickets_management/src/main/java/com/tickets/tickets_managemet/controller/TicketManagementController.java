@@ -34,7 +34,7 @@ public class TicketManagementController implements TicketsManagement{
 
     @Override
     @GetMapping("/check")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Map<Long, Integer> checkTickets(){
         log.info("[Ticket system] Start method checkTickets with endpoint /api/tickets/check");
         return ticketProcessor.ticketsCheck();

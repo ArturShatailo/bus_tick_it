@@ -2,11 +2,8 @@ package com.tickets.tickets_managemet.controller_tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tickets.tickets_managemet.domain.*;
-import com.tickets.tickets_managemet.domain.dto.ClientDTO;
 import com.tickets.tickets_managemet.domain.dto.RouteInfo;
-import com.tickets.tickets_managemet.repository.ClientRepository;
 import com.tickets.tickets_managemet.repository.RouteRepository;
-import com.tickets.tickets_managemet.repository.TicketRepository;
 import com.tickets.tickets_managemet.util.mapper.RouteMapper;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.*;
@@ -15,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -37,18 +33,7 @@ public class TicketsManagementControllerTest {
     private RouteMapper routeMapper;
 
     @Resource
-    private ClientRepository clientRepository;
-
-    @Resource
-    private TicketRepository ticketRepository;
-
-    @Resource
-    private RestTemplate restTemplate;
-
-    @Resource
     private RouteRepository routeRepository;
-
-    private static Client client;
 
     private static Route route;
 
@@ -59,21 +44,12 @@ public class TicketsManagementControllerTest {
     @BeforeAll
     public static void setup(){
 
-        ClientDTO clientDTO = new ClientDTO("Fred", "Johnson",
-                "John", "fred@fred.com");
-
-        client = new Client(1L, "Fred", "Johnson", "John",
-                "fred@fred.com", false, new ArrayList<>());
-
         st1 = new Station(1L, "Station", new StationAddress());
         st2 = new Station(2L, "Station2", new StationAddress());
 
         route = new Route(1L, st1, st2,
                 new Date(4670194458070L), 100.0, 2,
                 false, new ArrayList<>());
-
-        Ticket ticket = new Ticket(1L, route, client, 1L,
-                new Date(), "NEW", false, false);
 
     }
 
@@ -95,26 +71,6 @@ public class TicketsManagementControllerTest {
                 )
                 .andExpect(content().json(objectMapper.writeValueAsString(routes)))
                 .andExpect(status().isFound());
-    }
-
-    @Test
-    public void buyTicketController() throws Exception {
-
-//        clientRepository.save(client);
-//        routeRepository.save(route);
-//
-//        mockMvc.perform(post("/api/tickets/buy/{route_id}", route.getId())
-//                        .content(objectMapper.writeValueAsString(clientDTO))
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                )
-//                .andExpect(content().string(objectMapper.writeValueAsString(ticket.getId())))
-//                .andExpect(status().isCreated());
-
-    }
-
-    @Test
-    public void checkTicketsController() throws Exception {
-
     }
 
 }
