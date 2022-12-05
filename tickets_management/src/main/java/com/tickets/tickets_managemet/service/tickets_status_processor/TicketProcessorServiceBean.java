@@ -47,7 +47,7 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
                 ));
     }
 
-    public Ticket defineTicketStatus(Ticket ticket){
+    private Ticket defineTicketStatus(Ticket ticket){
 
         //define new status for payment
         String newPaymentStatus = randomPaymentStatusForTicket(ticket.getPayment_id());

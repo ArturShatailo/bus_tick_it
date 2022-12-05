@@ -44,7 +44,7 @@ public class PaymentStatusServiceBean implements PaymentStatusService {
                             String status = defineRandomFromList(statusConfig.status());
                             log.info("[Payment system] status_processing service method sets status for payment with id {}", v.getId());
                             v.setStatus(status);
-                            return status;
+                            return paymentRepository.save(v).getStatus();
                         }
                         ));
     }
