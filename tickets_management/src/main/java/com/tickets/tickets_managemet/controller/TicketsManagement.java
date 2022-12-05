@@ -1,6 +1,7 @@
 package com.tickets.tickets_managemet.controller;
 
 import com.tickets.tickets_managemet.domain.dto.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.TicketInfo;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Map;
@@ -32,5 +33,13 @@ public interface TicketsManagement {
      */
     @GetMapping("/check")
     Map<Long, Integer> checkTickets();
+
+    /**
+     * Returns Ticket information as a TicketInfo DTO by id received in parameter.
+     *
+     * @return TicketInfo object
+     */
+    @GetMapping("/info/{ticket_id}")
+    TicketInfo infoTicket(@PathVariable Long ticket_id);
 
 }
