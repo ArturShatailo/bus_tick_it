@@ -17,8 +17,8 @@ public interface TicketsManagement {
      * @param route_id  the Route id
      * @return the id of created Ticket entity
      */
-    @PostMapping("/buy")
-    Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @RequestParam Long route_id);
+    @PostMapping("/buy/{route_id}")
+    Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @PathVariable Long route_id);
 
 
     /**

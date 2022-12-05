@@ -58,5 +58,4 @@ public class PaymentSystemController implements PaymentSystemMethods{
         log.info("[Payment system] Start method pay. ClientDTO: {} and amount: {} received", clientDTO, amount);
         return payServiceBean.do_payment(clientMapper.toObject(clientDTO), amount);
     }
-
 }

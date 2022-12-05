@@ -25,10 +25,10 @@ public class TicketManagementController implements TicketsManagement{
     private final TicketProcessorServiceBean ticketProcessor;
 
     @Override
-    @PostMapping("/buy")
+    @PostMapping("/buy/{route_id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @RequestParam Long route_id){
-        log.info("[Ticket system] Start method buyTicket with endpoint /api/tickets/buy");
+    public Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @PathVariable Long route_id){
+        log.info("[Ticket system] Start method buyTicket with endpoint /api/tickets/buy/{route_id}");
         return purchaseProcessing.buyTicket(clientMapper.toObject(clientDTO), route_id);
     }
 
