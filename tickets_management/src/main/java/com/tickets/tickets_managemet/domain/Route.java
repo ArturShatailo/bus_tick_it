@@ -44,4 +44,16 @@ public class Route {
     public void backTicket() {
         available_tickets_amount += 1;
     }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "id=" + id +
+                ", from=" + from.getName() +
+                ", to=" + to.getName() +
+                ", departure_time=" + departure_time +
+                ", cost=" + cost +
+                ", available_tickets_amount=" + available_tickets_amount +
+                '}';
+    }
 }

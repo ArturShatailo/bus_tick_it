@@ -22,7 +22,7 @@ public class TicketInfoServiceBean implements TicketInfoService{
     public TicketInfo getTicketInfo(Long id) {
         log.info("[Ticket system] Start method getTicketInfo with id {}", id);
         Ticket ticket = getById(id);
-        return new TicketInfo(ticket.getRoute(), getPaymentStatus(ticket.getPayment_id()));
+        return new TicketInfo(ticket.getRoute().toString(), getPaymentStatus(ticket.getPayment_id()));
     }
 
     private String getPaymentStatus(Long id) {

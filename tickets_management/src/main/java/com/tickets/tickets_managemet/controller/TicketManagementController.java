@@ -1,6 +1,8 @@
 package com.tickets.tickets_managemet.controller;
 
 import com.tickets.tickets_managemet.domain.dto.ClientDTO;
+import com.tickets.tickets_managemet.domain.dto.TicketInfo;
+import com.tickets.tickets_managemet.service.ticket.TicketInfoServiceBean;
 import com.tickets.tickets_managemet.service.ticket.TicketPurchaseServiceBean;
 import com.tickets.tickets_managemet.service.tickets_status_processor.TicketProcessorServiceBean;
 import com.tickets.tickets_managemet.util.mapper.ClientMapper;
@@ -22,6 +24,8 @@ public class TicketManagementController implements TicketsManagement{
 
     private final ClientMapper clientMapper;
 
+    private final TicketInfoServiceBean ticketInfoServiceBean;
+
     private final TicketProcessorServiceBean ticketProcessor;
 
     @Override
@@ -30,6 +34,14 @@ public class TicketManagementController implements TicketsManagement{
     public Long buyTicket(@RequestBody @Valid ClientDTO clientDTO, @PathVariable Long route_id){
         log.info("[Ticket system] Start method buyTicket with endpoint /api/tickets/buy/{route_id}");
         return purchaseProcessing.buyTicket(clientMapper.toObject(clientDTO), route_id);
+    }
+
+    @Override
+    @GetMapping("/info/{ticket_id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public TicketInfo infoTicket(@PathVariable Long ticket_id){
+        log.info("[Ticket system] Start method infoTicket with endpoint /api/tickets/info/{ticket_id}");
+        return ticketInfoServiceBean.getTicketInfo(ticket_id);
     }
 
     @Override

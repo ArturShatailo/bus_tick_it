@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +41,14 @@ public class TicketInfoServiceTest {
     @BeforeAll
     public static void setup(){
 
-        ticket = new Ticket(1L, new Route(), new Client(), 1L,
+        Station st1 = new Station(1L, "Station", new StationAddress());
+        Station st2 = new Station(2L, "Station2", new StationAddress());
+
+        Route route = new Route(1L, st1, st2,
+                new Date(4670194458070L), 100.0, 2,
+                false, new ArrayList<>());
+
+        ticket = new Ticket(1L, route, new Client(), 1L,
                 new Date(), "NEW", false, false);
     }
 
@@ -70,7 +79,7 @@ public class TicketInfoServiceTest {
     public void whenGetTicketInfoShouldReturnTicketInfo() {
 
         TicketInfo ticketInfo =
-                new TicketInfo(ticket.getRoute(), "NEW");
+                new TicketInfo(ticket.getRoute().toString(), "NEW");
 
         when(ticketRepository.findById(anyLong()))
                 .thenReturn(Optional.ofNullable(ticket));
