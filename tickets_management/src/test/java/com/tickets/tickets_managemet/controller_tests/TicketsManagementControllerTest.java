@@ -50,24 +50,16 @@ public class TicketsManagementControllerTest {
 
     private static Client client;
 
-    private static Ticket ticket;
-
     private static Route route;
 
     private static Station st1;
 
     private static Station st2;
 
-    private static ClientDTO clientDTO;
-
-    private static List<String> statuses;
-
     @BeforeAll
     public static void setup(){
 
-        statuses = List.of("NEW", "FAIL", "DONE");
-
-        clientDTO = new ClientDTO("Fred", "Johnson",
+        ClientDTO clientDTO = new ClientDTO("Fred", "Johnson",
                 "John", "fred@fred.com");
 
         client = new Client(1L, "Fred", "Johnson", "John",
@@ -80,7 +72,7 @@ public class TicketsManagementControllerTest {
                 new Date(4670194458070L), 100.0, 2,
                 false, new ArrayList<>());
 
-        ticket = new Ticket(1L, route, client, 1L,
+        Ticket ticket = new Ticket(1L, route, client, 1L,
                 new Date(), "NEW", false, false);
 
     }
@@ -117,8 +109,7 @@ public class TicketsManagementControllerTest {
 //                )
 //                .andExpect(content().string(objectMapper.writeValueAsString(ticket.getId())))
 //                .andExpect(status().isCreated());
-//
-//        routeRepository.save(route);
+
     }
 
     @Test
