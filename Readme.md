@@ -116,14 +116,6 @@ get information about Routes, Tickets and Payments.</p>
     </li>
 <div style="padding: 5px 0"></div> <!--spacing 10px-->
     <li>
-        <p>PUT <b>http://localhost:8083/api/pay/statuses</b></p>
-        <p>
-            Sets statuses for all Payment entities from database (in this variant, statuses are randomly chosen). 
-            Returns map of id of payment as a key and new status of payment as a value.
-        </p>
-    </li>
-<div style="padding: 5px 0"></div> <!--spacing 10px-->
-    <li>
         <p>POST <b>http://localhost:8083/api/pay/{amount}</b></p>
         <p>
             Receives amount and ClientDTO and creates new Payment with these details. 
