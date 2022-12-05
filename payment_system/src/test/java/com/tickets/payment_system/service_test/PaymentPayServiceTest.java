@@ -51,7 +51,6 @@ public class PaymentPayServiceTest {
                 "fred@fred.com", false, new ArrayList<>());
 
         payment = new Payment(1L, "NEW", 100.0, client, false);
-
     }
 
     @Test
