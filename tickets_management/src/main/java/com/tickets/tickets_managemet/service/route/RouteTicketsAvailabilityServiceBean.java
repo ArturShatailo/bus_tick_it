@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class RouteTicketsAvailabilityServiceBean implements RouteTicketsAvailabilityService{
 
-    private final RouteValidationServiceBean validationService;
+    //private final RouteValidationServiceBean validationService;
+
+    private final RouteValidationService validationService;
 
     @Override
     public void check(Long id) {

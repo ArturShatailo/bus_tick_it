@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketPurchaseServiceBean implements TicketPurchaseService{
 
-    private final TicketPurchaseProcessingServiceBean purchaseProcessingServiceBean;
+    //private final TicketPurchaseProcessingServiceBean purchaseProcessingServiceBean;
+
+    private final TicketPurchaseProcessingService purchaseProcessingService;
 
     @Override
     public Long buyTicket(Client client, Long route_id) {
-        return purchaseProcessingServiceBean.ticketPurchaseProcessing(client, route_id);
+        return purchaseProcessingService.ticketPurchaseProcessing(client, route_id);
     }
 }

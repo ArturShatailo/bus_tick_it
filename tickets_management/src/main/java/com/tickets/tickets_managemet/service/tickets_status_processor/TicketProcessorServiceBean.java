@@ -2,7 +2,9 @@ package com.tickets.tickets_managemet.service.tickets_status_processor;
 
 import com.tickets.tickets_managemet.domain.Ticket;
 import com.tickets.tickets_managemet.repository.TicketRepository;
+import com.tickets.tickets_managemet.service.route.PurchaseUpdateService;
 import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
+import com.tickets.tickets_managemet.service.ticket.filters.FilterService;
 import com.tickets.tickets_managemet.service.ticket.filters.FilterServiceBean;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import lombok.AllArgsConstructor;
@@ -21,11 +23,14 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
 
     private final TicketRepository ticketRepository;
 
-    private final RouteCrudServiceBean routeCrudServiceBean;
+    //private final RouteCrudServiceBean routeCrudServiceBean;
+
+    private final PurchaseUpdateService purchaseUpdateService;
 
     private final TicketConfig ticketConfig;
 
-    private final FilterServiceBean filter;
+    //private final FilterServiceBean filter;
+    private final FilterService filter;
 
     @Transactional
     @Override
@@ -86,7 +91,7 @@ public class TicketProcessorServiceBean implements TicketProcessorService{
 
     //cancel the ticket trade in case of receiving final failed status
     private void routeProcessingCheck(Ticket ticket) {
-        routeCrudServiceBean.updateCancel(ticket.getRoute().getId(), ticket);
+        purchaseUpdateService.updateCancel(ticket.getRoute().getId(), ticket);
     }
 
 }

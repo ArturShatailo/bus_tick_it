@@ -5,8 +5,7 @@ import com.tickets.tickets_managemet.domain.Route;
 import com.tickets.tickets_managemet.domain.Ticket;
 import com.tickets.tickets_managemet.repository.ClientRepository;
 import com.tickets.tickets_managemet.repository.TicketRepository;
-import com.tickets.tickets_managemet.service.route.RouteCrudServiceBean;
-import com.tickets.tickets_managemet.service.route.RouteTicketsAvailabilityServiceBean;
+import com.tickets.tickets_managemet.service.route.*;
 import com.tickets.tickets_managemet.util.configuration.TicketConfig;
 import com.tickets.tickets_managemet.util.exceptions.client.ClientNotFoundException;
 import lombok.AllArgsConstructor;
@@ -21,9 +20,13 @@ import java.util.Date;
 @Service
 public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProcessingService{
 
-    private final RouteCrudServiceBean routeCrudServiceBean;
+    /*private final RouteCrudServiceBean routeCrudServiceBean;*/
 
-    private final RouteTicketsAvailabilityServiceBean routeTicketsAvailability;
+    private final CrudService<Route> routeCrudService; //service interface instead of class RouteCrudServiceBean
+
+    private final PurchaseUpdateService purchaseUpdateService;  //service interface instead of class RouteCrudServiceBean
+
+    private final /*RouteTicketsAvailabilityService*/RouteTicketsAvailabilityService routeTicketsAvailability;
 
     private final TicketRepository ticketRepository;
 
@@ -67,11 +70,11 @@ public class TicketPurchaseProcessingServiceBean implements TicketPurchaseProces
     }
 
     private Route getRoute(Long id){
-        return routeCrudServiceBean.getById(id);
+        return routeCrudService.getById(id);
     }
 
     private void updateRouteAfterTicketSell(Long route_id, Ticket ticket){
-        routeCrudServiceBean.updateSell(route_id, ticket);
+        purchaseUpdateService.updateSell(route_id, ticket);
     }
 
     public Long getPaymentID(Client client, Double amount) {
